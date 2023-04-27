@@ -11,11 +11,11 @@ app = Flask(__name__)
 api = Api(
     app, 
     version='1.0', 
-    title='API de Predicción de Regresión',
-    description='API de Predicción de Regresión')
+    title='API de Predicción de precios en Vehículos',
+    description='Esta API es construida con la intención que puedas predecir el precio de un Vehículos conociendo su Año de puesta en marcha, el Millaje recorrido, el Estado en donde se encuentra, el Fabricante y el Modelo')
 
 ns = api.namespace('predict', 
-     description='Predicción de Regresión')
+     description='Predicción de precios en Vehículos')
    
 parser = api.parser()
 
@@ -23,37 +23,36 @@ parser.add_argument(
     'Year', 
     type=int, 
     required=True, 
-    help='Valor 1', 
+    help='Ingrese el año', 
     location='args')
 
 parser.add_argument(
-    'Milage', 
+    'Mileage', 
     type=int, 
     required=True, 
-    help='Valor 2', 
+    help='Ingrese el Millaje recorrido', 
     location='args')
 
 parser.add_argument(
-    'State_cod', 
-    type=int, 
+    'State', 
+    type=str, 
     required=True, 
-    help='Valor 3', 
+    help='Estado donde está el vehículo', 
     location='args')
 
 parser.add_argument(
-    'Make_cod', 
-    type=int, 
+    'Make', 
+    type=str, 
     required=True, 
-    help='Valor 4', 
+    help='Ingrese el Fabricante', 
     location='args')
 
 parser.add_argument(
-    'Model_cod', 
-    type=int, 
+    'Model', 
+    type=str, 
     required=True, 
-    help='Valor 5', 
+    help='Ingrese el Modelo', 
     location='args')
-
 resource_fields = api.model('Resource', {
     'result': fields.Float,
 })
@@ -67,7 +66,7 @@ class RegressionApi(Resource):
         args = parser.parse_args()
         
         return {
-         "result": predict(args['Year'], args['Milage'], args['State_cod'], args['Make_cod'], args['Model_cod'])
+         "result": predict(args['Year'], args['Mileage'], args['State'], args['Make'], args['Model'])
         }, 200
     
     
