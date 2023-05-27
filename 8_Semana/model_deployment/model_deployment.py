@@ -5,7 +5,6 @@ import sys
 import os
 import nltk
 from nltk.corpus import stopwords
-nltk.download('punkt')
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
